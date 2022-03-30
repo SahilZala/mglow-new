@@ -86,19 +86,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 		else {
 			System.out.println("JWTAUTHENTICATIONFILTER log: an unauthorized request");
 			
-			StringBuilder sb = new StringBuilder();
-            sb.append("{ ");
-            sb.append("\"error\": \"unauthorized request\",");
-            sb.append("\"message\": \"unauthorized\",");
-            sb.append("\"path\": \"")
-            .append(request.getRequestURL())
-            .append("\"");
-            sb.append("} ");
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write(sb.toString());
+//			StringBuilder sb = new StringBuilder();
+//            sb.append("{ ");
+//            sb.append("\"error\": \"unauthorized request\",");
+//            sb.append("\"message\": \"unauthorized\",");
+//            sb.append("\"path\": \"")
+//            .append(request.getRequestURL())
+//            .append("\"");
+//            sb.append("} ");
+//            response.setContentType("application/json");
+//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//            response.getWriter().write(sb.toString());
             
-            return;
+//            return;
 
 		}
 		

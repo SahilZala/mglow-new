@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mark2.mglow.helper.JwtUtil;
-import com.mark2.mglow.model.ErrorResponse;
+import com.mark2.mglow.model.Response;
 import com.mark2.mglow.model.JwtRequest;
 import com.mark2.mglow.model.JwtResponse;
 import com.mark2.mglow.service.CustomeUserDetailsService;
@@ -44,20 +44,20 @@ public class JwtController {
 			catch(Exception ex)
 			{
 				System.out.println("JWTCONTROLLER log: "+ex.getMessage());
-				return ResponseEntity.ok(new ErrorResponse(ex.getMessage()));
+				return ResponseEntity.ok(new Response(ex.getMessage()));
 			}
 		}
 		catch(UsernameNotFoundException ex) {
 			System.out.println("JWTCONTROLLER log: "+ex.getMessage());
 			ex.getStackTrace();
-			return ResponseEntity.ok(new ErrorResponse(ex.getMessage()));
+			return ResponseEntity.ok(new Response(ex.getMessage()));
 			
 		}
 		catch(Exception ex) {
 			
 			System.out.println("JWTCONTROLLER log: "+ex.getMessage());
 			ex.printStackTrace();
-			return ResponseEntity.ok(new ErrorResponse(ex.getMessage()));
+			return ResponseEntity.ok(new Response(ex.getMessage()));
 		}
 		
 		//final area

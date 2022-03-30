@@ -3,7 +3,6 @@ package com.mark2.mglow.controller;
 import java.io.IOException;
 import java.util.Date;
 
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,7 +14,7 @@ import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mark2.mglow.helper.UserRepository;
-import com.mark2.mglow.model.ErrorResponse;
+import com.mark2.mglow.model.Response;
 import com.mark2.mglow.model.UserData;
 
 
@@ -36,28 +35,31 @@ public class LoginController {
 		ObjectMapper mapper = new ObjectMapper();
 		UserData userData = mapper.readValue(user.getBytes(), UserData.class);
 		
-		userData.setUserid(new Date().getHours()+""+new Date().getTime());
+		userData.setUserid(""+new Date().getTime());
 		
 		if(userData.getMobileno() != null) {
 			if(userData.getMobileno().length() != 10) {
-				return ResponseEntity.ok(new ErrorResponse("invalid length of mobileno!"));
+				System.out.println("LOG: invalid length of mobileno.");
+				return ResponseEntity.ok(new Response("invalid length of mobileno!",0));
 			}
 		}
 		else {
-			return ResponseEntity.ok(new ErrorResponse("pleasse enter mobileno!"));
+			System.out.println("LOG: pleasse enter mobileno.");
+			return ResponseEntity.ok(new Response("pleasse enter mobileno!",0));
 		}
 		
-		UserData returnData;
 		
 		try {
-			 returnData = this.userRepo.save(userData);
+			 this.userRepo.save(userData);
+			 System.out.println("LOG: success");
+			 return ResponseEntity.ok(new Response("success",1));
 		}
 		catch(Exception ex)
 		{
-			System.out.println("log: "+ex.getMessage());
-			return ResponseEntity.ok(new ErrorResponse(ex.getMessage()));
+			System.out.println("LOG: "+ex.getMessage());
+			return ResponseEntity.ok(new Response(ex.getMessage(),0));
 		}
-		return ResponseEntity.ok(returnData);
+		
 	}
 	
 }
